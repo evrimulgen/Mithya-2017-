@@ -73,16 +73,11 @@ public class IntroActivity extends MaterialIntroActivity {
     @Override
     public void onFinish() {
         super.onFinish();
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Do something after 100ms
+
                 Intent i = new Intent(IntroActivity.this, Splash.class);
                 startActivity(i);
                 finish();
-            }
-        }, 1500);
+
     }
 
 }

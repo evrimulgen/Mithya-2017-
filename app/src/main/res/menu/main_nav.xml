@@ -17,9 +17,7 @@
         <item android:title="SCORES"
             android:id="@+id/nav_scores"
             android:icon="@drawable/scores"/>
-        <item android:title="POST PARTY"
-            android:id="@+id/nav_party"
-            android:icon="@drawable/party"/>
+
         <item android:title="THE TEAM"
             android:id="@+id/nav_team"
             android:icon="@drawable/team"/>
@@ -28,7 +26,7 @@
         <item android:title="FACEBOOK"
             android:id="@+id/nav_fb"
             android:icon="@drawable/facebook"/>
-        <item android:title="GALLERY"
+        <item android:title="FEED"
             android:id="@+id/nav_gallery"
             android:icon="@drawable/gallery"/>
     </group>

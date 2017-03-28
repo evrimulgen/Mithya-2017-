@@ -145,11 +145,6 @@ public class Home extends AppCompatActivity {
                         startIntroAnimation();
                         fragmentTransaction.replace(R.id.containerView, new ScoresFragment()).commit();
                         return true;
-                    case R.id.nav_party:
-                        toolTitle.setText("Post Party - Mithya 2017");
-                        startIntroAnimation();
-                        fragmentTransaction.replace(R.id.containerView, new PartyFragment()).commit();
-                        return true;
                     case R.id.nav_team:
                         toolTitle.setText("Team - Mithya 2017");
                         startIntroAnimation();
