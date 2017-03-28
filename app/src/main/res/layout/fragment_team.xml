@@ -1,0 +1,58 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.pcce.mithya.mithya2017.TeamFragment">
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Name"
+            android:id="@+id/teamFName"
+            android:gravity="center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Name"
+            android:id="@+id/teamLName"
+            android:gravity="center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:layout_height="wrap_content" />
+        <com.yarolegovich.discretescrollview.DiscreteScrollView
+            android:id="@+id/picker"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Designation"
+            android:id="@+id/teamDesignation"
+            android:gravity="center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:id="@+id/teamContact"
+            android:text="CALL ME"
+            android:textColor="@color/colorWhite"
+            android:backgroundTint="@color/colorAccent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</FrameLayout>

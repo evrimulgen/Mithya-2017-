@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/wait"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please Wait..."/>
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avi"
+                android:layout_margin="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/AVLoadingIndicatorView"
+                android:visibility="visible"
+                app:indicatorName="LineScalePulseOutIndicator"
+                app:indicatorColor="#8e44ad" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

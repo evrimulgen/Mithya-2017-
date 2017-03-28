@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/grp1">
+        <item android:title="HOME"
+            android:enabled="true"
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"/>
+        <item android:title="EVENTS"
+            android:id="@+id/nav_events"
+            android:icon="@drawable/events"/>
+        <item android:title="SCHEDULE"
+            android:id="@+id/nav_schedule"
+            android:icon="@drawable/time"/>
+        <item android:title="SHOW OF STRENGTH"
+            android:id="@+id/nav_sos"
+            android:icon="@drawable/strength"/>
+        <item android:title="SCORES"
+            android:id="@+id/nav_scores"
+            android:icon="@drawable/scores"/>
+        <item android:title="POST PARTY"
+            android:id="@+id/nav_party"
+            android:icon="@drawable/party"/>
+        <item android:title="THE TEAM"
+            android:id="@+id/nav_team"
+            android:icon="@drawable/team"/>
+    </group>
+    <group android:id="@+id/grp2">
+        <item android:title="FACEBOOK"
+            android:id="@+id/nav_fb"
+            android:icon="@drawable/facebook"/>
+        <item android:title="GALLERY"
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/gallery"/>
+    </group>
+    <group android:id="@+id/grp3">
+        <item android:title="DEVELOPERS"
+            android:id="@+id/nav_devs"
+            android:icon="@drawable/developers"/>
+    </group>
+</menu>

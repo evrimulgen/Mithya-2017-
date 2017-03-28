@@ -1,0 +1,148 @@
+{
+  "project_info": {
+    "project_number": "133411413871",
+    "firebase_url": "https://mithya-2017.firebaseio.com",
+    "project_id": "mithya-2017",
+    "storage_bucket": "mithya-2017.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133411413871:android:813255ca9cd228d1",
+        "android_client_info": {
+          "package_name": "com.amberzile.magnusfernandes.mithya2017"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133411413871-9fveiq0eo5ab6u8vkttdaqnqjlr0p11e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.amberzile.magnusfernandes.mithya2017",
+            "certificate_hash": "fa6cf139323b6b3d211bfcb046367b25d8f92ece"
+          }
+        },
+        {
+          "client_id": "133411413871-ul420ffvqfc00okv2br6mq4idcve6vfb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATm0uptVHWyyRK93KfRkgnFG2M8oilC0U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133411413871-ul420ffvqfc00okv2br6mq4idcve6vfb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133411413871:android:2de0f614cf8d8168",
+        "android_client_info": {
+          "package_name": "pcce.mithya.com.mithya2017"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133411413871-ul420ffvqfc00okv2br6mq4idcve6vfb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATm0uptVHWyyRK93KfRkgnFG2M8oilC0U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133411413871:android:a5be94a91b33c740",
+        "android_client_info": {
+          "package_name": "mithya.pcce.com.mithyacoordinatorapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133411413871-ul420ffvqfc00okv2br6mq4idcve6vfb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATm0uptVHWyyRK93KfRkgnFG2M8oilC0U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133411413871:android:c0582ad2d268479b",
+        "android_client_info": {
+          "package_name": "com.pcce.mithya.mithya2017"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133411413871-ul420ffvqfc00okv2br6mq4idcve6vfb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATm0uptVHWyyRK93KfRkgnFG2M8oilC0U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
