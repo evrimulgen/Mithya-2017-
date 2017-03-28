@@ -7,19 +7,29 @@ import java.util.ArrayList;
  */
 
 public class Event {
-    String name, type, participants, venue, description, duration, image, icon, key;
+    String Name, type, participants, venue, description, duration, image, icon, key;
     ArrayList<Coordinator> coordinators;
     ArrayList<String> rules;
+    private Scores Scores;
 
     public Event() {
     }
 
+
+    public Scores getScores() {
+        return Scores;
+    }
+
+    public void setScores(Scores scores) {
+        this.Scores = scores;
+    }
+
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Name = name;
     }
 
     public String getParticipants() {
@@ -101,4 +111,6 @@ public class Event {
     public void setRules(ArrayList<String> rules) {
         this.rules = rules;
     }
+
+
 }

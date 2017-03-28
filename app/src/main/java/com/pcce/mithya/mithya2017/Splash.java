@@ -14,7 +14,7 @@ public class Splash extends AppCompatActivity {
     AnimationDrawable animationDrawable;
     LinearLayout linearLayout;
     TextView presents;
-    private static int SPLASH_TIME = 2500;
+    private static int SPLASH_TIME = 1500;
 
 
     @Override

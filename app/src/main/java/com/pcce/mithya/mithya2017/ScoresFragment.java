@@ -10,6 +10,7 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,19 +34,23 @@ import static com.pcce.mithya.mithya2017.StrengthFragment.MY_COLORS;
 
 public class ScoresFragment extends Fragment {
 
-    DatabaseReference mDatabase,score;
+    DatabaseReference mDatabase, score;
     private PieChart chart;
-    private Integer[] yData = {0, 0, 0, 0};
+
+    int COMPSCORE, ITSCORE, MECHSCORE, ETCSCORE;
     private String[] xData = {"Information Technology", "Mechanical Engineering", "Computer Engineering", "Electronics and Telecommunications"};
     Activity ctx;
-    String  day;
+    String day;
 
     private TextView it, comp, mech, etc;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scores, container, false);
 
-        mDatabase= FirebaseDatabase.getInstance().getReference("scores");
-      //  Home.toolTitle.setText("Scores - Mithya 2017");
+        mDatabase = FirebaseDatabase.getInstance().getReference("events");
+
+
+        //  Home.toolTitle.setText("Scores - Mithya 2017");
 
         ctx = getActivity();
         chart = (PieChart) view.findViewById(R.id.chart);
@@ -57,26 +62,21 @@ public class ScoresFragment extends Fragment {
         comp.setTypeface(Main.myCustomFont);
         mech.setTypeface(Main.myCustomFont);
         etc.setTypeface(Main.myCustomFont);
-        chart.setCenterText(generateCenterSpannableText());
+//        chart.setCenterText(generateCenterSpannableText());
         chart.setHoleColor(Color.parseColor("#ecf0f1"));
-       // loadChart(yData);
+        // loadChart(yData);
         chart.setEntryLabelColor(Color.WHITE);
 
-
-
-
-
-        mDatabase.child("it").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-               Toast.makeText(getActivity(), dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
-                yData[0]= Integer.valueOf(dataSnapshot.getValue().toString());
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadChart(yData);
-                    }
-                });
+                COMPSCORE = 0;
+                ITSCORE = 0;
+                MECHSCORE = 0;
+                ETCSCORE = 0;
+
+
+                getData();
 
             }
 
@@ -85,71 +85,6 @@ public class ScoresFragment extends Fragment {
 
             }
         });
-
-        mDatabase.child("mech").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(getActivity(), dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
-                yData[1]= Integer.valueOf(dataSnapshot.getValue().toString());
-                loadChart(yData);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mDatabase.child("etc").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(getActivity(), dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
-                yData[2]= Integer.valueOf(dataSnapshot.getValue().toString());
-                loadChart(yData);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-        mDatabase.child("comp").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(getActivity(), dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
-                yData[3]= Integer.valueOf(dataSnapshot.getValue().toString());
-                loadChart(yData);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mDatabase.child("day").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(getActivity(), dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
-                day = dataSnapshot.getValue().toString();
-                chart.invalidate();
-                chart.setCenterText(generateCenterSpannableText());
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-      //  loadChart(yData);
-
 
 
         return view;
@@ -157,11 +92,139 @@ public class ScoresFragment extends Fragment {
 
     }
 
+    void getData() {
 
-    private void loadChart(Integer[] yvals){
+        mDatabase.child("Day1")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+
+                            Event event = snapshot.getValue(Event.class);
+                            Log.d("Scores", "" + event.getName());
+
+
+                            COMPSCORE = COMPSCORE + event.getScores().getCOMP();
+                            ITSCORE = ITSCORE + event.getScores().getIT();
+                            MECHSCORE = MECHSCORE + event.getScores().getMECH();
+                            ETCSCORE = ETCSCORE + event.getScores().getETC();
+
+
+                        }
+
+                        mDatabase.child("Day 2")
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+
+                                            Event event = snapshot.getValue(Event.class);
+                                            Log.d("Scores", "" + event.getName());
+
+
+                                            COMPSCORE = COMPSCORE + event.getScores().getCOMP();
+                                            ITSCORE = ITSCORE + event.getScores().getIT();
+                                            MECHSCORE = MECHSCORE + event.getScores().getMECH();
+                                            ETCSCORE = ETCSCORE + event.getScores().getETC();
+
+
+                                        }
+
+                                        mDatabase.child("Day 3")
+                                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+
+                                                            Event event = snapshot.getValue(Event.class);
+                                                            Log.d("Scores", "" + event.getName());
+
+
+                                                            COMPSCORE = COMPSCORE + event.getScores().getCOMP();
+                                                            ITSCORE = ITSCORE + event.getScores().getIT();
+                                                            MECHSCORE = MECHSCORE + event.getScores().getMECH();
+                                                            ETCSCORE = ETCSCORE + event.getScores().getETC();
+
+
+                                                        }
+
+                                                        mDatabase.child("Day 4")
+                                                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                    @Override
+                                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+
+                                                                            Event event = snapshot.getValue(Event.class);
+                                                                            Log.d("Scores", "" + event.getName());
+
+
+                                                                            COMPSCORE = COMPSCORE + event.getScores().getCOMP();
+                                                                            ITSCORE = ITSCORE + event.getScores().getIT();
+                                                                            MECHSCORE = MECHSCORE + event.getScores().getMECH();
+                                                                            ETCSCORE = ETCSCORE + event.getScores().getETC();
+
+
+                                                                        }
+                                                                        Integer[] yData = {ITSCORE, MECHSCORE, COMPSCORE, ETCSCORE};
+
+                                                                        loadChart(yData);
+                                                                        Log.d("Scores", "" + COMPSCORE);
+                                                                        Log.d("Scores", "" + ITSCORE);
+                                                                        Log.d("Scores", "" + MECHSCORE);
+                                                                        Log.d("Scores", "" + ETCSCORE);
+
+
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onCancelled(DatabaseError databaseError) {
+                                                                    }
+
+
+                                                                });
+
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+                                                    }
+
+
+                                                });
+
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+
+
+                                });
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+
+
+                });
+
+
+    }
+
+
+    private void loadChart(Integer[] yvals) {
         ArrayList<PieEntry> yvalues = new ArrayList<>();
         ArrayList<String> xvalues = new ArrayList<>();
-        for (Integer yval: yvals) {
+        for (Integer yval : yvals) {
             yvalues.add(new PieEntry(yval));
         }
         PieDataSet dataSet = new PieDataSet(yvalues, "");
@@ -171,7 +234,7 @@ public class ScoresFragment extends Fragment {
 
 
         dataSet.setColors(colors);
-        for (String xval: xData) {
+        for (String xval : xData) {
             xvalues.add(xval);
         }
 
@@ -186,17 +249,16 @@ public class ScoresFragment extends Fragment {
     }
 
 
-
-    private SpannableStringBuilder generateCenterSpannableText() {
-
-        SpannableStringBuilder s = new SpannableStringBuilder("SCORE OF DAY\n"+"DAY "+day);
-        s.setSpan(new RelativeSizeSpan(1.2f), 0, 16, 0);
-        s.setSpan(new StyleSpan(Typeface.BOLD), 0, 16, 0);
-//        s.setSpan(new RelativeSizeSpan(.8f), 16, s.length() - 5, 0);
-        s.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), 17, s.length(), 0);
-        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), 17, s.length(), 0);
-        s.setSpan(new CustomTypefaceSpan("", Main.myCustomFont), 0, s.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-        return s;
-    }
+//    private SpannableStringBuilder generateCenterSpannableText() {
+//
+//        SpannableStringBuilder s = new SpannableStringBuilder("SCORES SO FAR");
+//        s.setSpan(new RelativeSizeSpan(1.2f), 0, 16, 0);
+//        s.setSpan(new StyleSpan(Typeface.BOLD), 0, 16, 0);
+////        s.setSpan(new RelativeSizeSpan(.8f), 16, s.length() - 5, 0);
+//        s.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), 17, s.length(), 0);
+//        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), 17, s.length(), 0);
+//        s.setSpan(new CustomTypefaceSpan("", Main.myCustomFont), 0, s.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+//        return s;
+//    }
 
 }
