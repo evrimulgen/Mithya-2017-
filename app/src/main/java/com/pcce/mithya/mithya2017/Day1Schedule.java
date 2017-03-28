@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,12 +44,12 @@ public class Day1Schedule extends Fragment {
         mDatabase= FirebaseDatabase.getInstance().getReference("events");
         activity = getActivity();
         schedulerecyler = (RecyclerView)rootView.findViewById(R.id.schedulerecylerview);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(),2);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         schedulerecyler.setLayoutManager(mLayoutManager);
        // DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(schedulerecyler.getContext(),
       //          LinearLayoutManager.HORIZONTAL);
      //   schedulerecyler.addItemDecoration(dividerItemDecoration);
-        day = mDatabase.child("Day 1");
+        day = mDatabase.child("Day1");
         showDialog();
         day.addValueEventListener(new ValueEventListener() {
             @Override

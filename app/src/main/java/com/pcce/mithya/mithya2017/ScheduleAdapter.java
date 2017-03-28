@@ -8,7 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.util.List;
 
@@ -72,7 +77,7 @@ public class ScheduleAdapter   extends  RecyclerView.Adapter<ScheduleAdapter.MyV
         holder.Name.setText(schedule.getName());
         holder.Time.setText(schedule.getDuration());
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Main.sharedEvent = scheduleList.get(Integer.parseInt(scheduleList.get(position).getKey()));
@@ -81,6 +86,14 @@ public class ScheduleAdapter   extends  RecyclerView.Adapter<ScheduleAdapter.MyV
                 context.startActivity(intent);
             }
         });
+
+        ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
+        // generate random color
+        int color1 = generator.getRandomColor();
+
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRound(holder.Name.getText().toString().substring(0,1), color1);
+        holder.imageView.setImageDrawable(drawable);
 
 
 
@@ -98,14 +111,16 @@ public class ScheduleAdapter   extends  RecyclerView.Adapter<ScheduleAdapter.MyV
 
         public TextView Name,Time;
         public Object checkbox;
-        private CardView cardView;
+        private LinearLayout card;
+        private ImageView imageView;
 
         public MyView(View view){
 
             super(view);
             Name = (TextView) view.findViewById(R.id.schedulename);
-            Time = (TextView) view.findViewById(R.id.schduletiming);
-            cardView =(CardView) view.findViewById(R.id.scheduleCard);
+            Time = (TextView) view.findViewById(R.id.scheduletiming);
+            card =(LinearLayout) view.findViewById(R.id.schedulecard);
+            imageView =(ImageView)view.findViewById(R.id.tv_image);
 
         }
 

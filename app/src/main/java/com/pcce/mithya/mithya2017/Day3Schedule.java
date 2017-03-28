@@ -3,6 +3,7 @@ package com.pcce.mithya.mithya2017;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,7 +36,7 @@ public class Day3Schedule extends Fragment {
         mDatabase= FirebaseDatabase.getInstance().getReference("events");
 
         schedulerecyler = (RecyclerView)rootView.findViewById(R.id.schedulerecylerview);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(),2);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         schedulerecyler.setLayoutManager(mLayoutManager);
         day = mDatabase.child("Day 3");
 

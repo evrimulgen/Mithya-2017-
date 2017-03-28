@@ -42,15 +42,16 @@ public class ScoresFragment extends Fragment {
     Activity ctx;
     String day;
 
+    static int its, comps, mechs, etcs;
+
     private TextView it, comp, mech, etc;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scores, container, false);
 
+
         mDatabase = FirebaseDatabase.getInstance().getReference("events");
 
-
-        //  Home.toolTitle.setText("Scores - Mithya 2017");
 
         ctx = getActivity();
         chart = (PieChart) view.findViewById(R.id.chart);
