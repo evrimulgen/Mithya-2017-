@@ -64,26 +64,7 @@ public class IntroActivity extends MaterialIntroActivity {
                             .buttonsColor(R.color.colorAccent)
                             .image(R.mipmap.ic_launcher)
                             .title("Almost there")
-                            .build(),
-                    new MessageButtonBehaviour(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //Do something after 100ms
-                                    Intent i = new Intent(IntroActivity.this, Splash.class);
-                                    startActivity(i);
-                                    finish();
-                                }
-                            }, 3000);
-
-
-                        }
-                    }, "Continue"));
+                            .build());
 
         }
     }
@@ -92,6 +73,16 @@ public class IntroActivity extends MaterialIntroActivity {
     @Override
     public void onFinish() {
         super.onFinish();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 100ms
+                Intent i = new Intent(IntroActivity.this, Splash.class);
+                startActivity(i);
+                finish();
+            }
+        }, 1500);
     }
 
 }
