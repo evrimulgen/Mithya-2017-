@@ -57,7 +57,7 @@ public class EventsFragment extends Fragment {
         dayAdapter = new DayAdapter(view.getContext(), imageList, days);
         daysList.setAdapter(dayAdapter);
         events = new ArrayList<>();
-        getData("Day 1");
+        getData("Day1");
         return view;
     }
 
