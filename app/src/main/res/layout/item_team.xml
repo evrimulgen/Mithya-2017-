@@ -10,8 +10,10 @@
         android:layout_height="wrap_content">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:adjustViewBounds="true"
+            android:src="@drawable/day1"
+            android:scaleType="center"
             android:id="@+id/teamImage"/>
     </android.support.v7.widget.CardView>
 </LinearLayout>

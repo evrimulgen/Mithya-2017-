@@ -22,14 +22,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.MyViewHolder>{
         this.data = data;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView image;
-        public MyViewHolder(View view){
-            super(view);
-            image = (ImageView) view.findViewById(R.id.teamImage);
-        }
-    }
 
     @Override
     public int getItemCount() {
@@ -37,29 +30,26 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.MyViewHolder>{
     }
 
     @Override
-    public TeamAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View mainView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_team, parent, false);
-        return new TeamAdapter.MyViewHolder(mainView);
+        return new MyViewHolder(mainView);
     }
 
     @Override
-    public void onBindViewHolder(final TeamAdapter.MyViewHolder holder, final int position) {
-        coordinator = data.get(position);
-     //   Picasso.with(ctx).load(coordinator.getImage()).into(holder.image);
-        Picasso.with(ctx).load(coordinator.getImage()).into(holder.image,
-                new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        if (data.size() == position){
-                            TeamFragment.scrollView.setAdapter(TeamFragment.teamAdapter);
-                            TeamFragment.dialog.dismiss();
-                        }
-                    }
+    public void onBindViewHolder(MyViewHolder holder, int position) {
 
-                    @Override
-                    public void onError() {
+//        Picasso.with(ctx).load("http://i.imgur.com/DvpvklR.png").into(holder.image);
+        Picasso.with(ctx).load(data.get(position).getImage()).into(holder.image);
 
-                    }
-                });
+
+    }
+
+   static class MyViewHolder extends RecyclerView.ViewHolder{
+
+        ImageView image;
+        public MyViewHolder(View view){
+            super(view);
+            image = (ImageView) view.findViewById(R.id.teamImage);
+        }
     }
 }

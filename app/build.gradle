@@ -35,7 +35,7 @@ dependencies {
     compile 'com.dynamitechetan.flowinggradient:flowinggradient:1.1'
     compile 'com.google.firebase:firebase-database:10.2.0'
     compile 'com.google.android.gms:play-services-auth:10.2.0'
-    compile 'com.yarolegovich:discrete-scrollview:1.0.3'
+    compile 'com.yarolegovich:discrete-scrollview:1.1.1'
     compile 'com.google.firebase:firebase-storage:10.2.0'
     compile 'com.google.firebase:firebase-auth:10.2.0'
     compile 'com.google.firebase:firebase-messaging:10.2.0'

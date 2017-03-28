@@ -44,6 +44,8 @@ public class TeamFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_team, container, false);
         Home.toolTitle.setText("Crew - Mithya 2017");
+
+
         scrollView = (DiscreteScrollView) view.findViewById(R.id.picker);
         fname = (TextView) view.findViewById(R.id.teamFName);
         lname = (TextView) view.findViewById(R.id.teamLName);
@@ -52,7 +54,7 @@ public class TeamFragment extends Fragment {
         team = new ArrayList<>();
         teamAdapter = new TeamAdapter(getActivity(),team);
         scrollView.setAdapter(teamAdapter);
-        showDialog();
+//        showDialog();
         getData();
 
         scrollView.setClipToPadding(false);
@@ -73,21 +75,25 @@ public class TeamFragment extends Fragment {
                 }
             }
         });
+
         scrollView.setScrollStateChangeListener(new DiscreteScrollView.ScrollStateChangeListener<RecyclerView.ViewHolder>() {
             @Override
-            public void onScrollStart(RecyclerView.ViewHolder currentItemHolder, int adapterPosition) {
+            public void onScrollStart(@NonNull RecyclerView.ViewHolder currentItemHolder, int adapterPosition) {
 
             }
 
             @Override
-            public void onScrollEnd(RecyclerView.ViewHolder currentItemHolder, int adapterPosition) {
+            public void onScrollEnd(@NonNull RecyclerView.ViewHolder currentItemHolder, int adapterPosition) {
                 getInfo(adapterPosition);
+
             }
 
             @Override
-            public void onScroll(float scrollPosition) {
+            public void onScroll(float scrollPosition, @NonNull RecyclerView.ViewHolder currentHolder, @NonNull RecyclerView.ViewHolder newCurrent) {
+
             }
         });
+
         return view;
     }
 
@@ -118,7 +124,7 @@ public class TeamFragment extends Fragment {
                         .setMinScale(0.8f)
                         .build());
                 getInfo(scrollView.getCurrentItem());
-                dialog.dismiss();
+//                dialog.dismiss();
 
 
 
@@ -161,15 +167,15 @@ public class TeamFragment extends Fragment {
         }
     }
 
-    public void showDialog(){
-        dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.progress);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-        AVLoadingIndicatorView avi = (AVLoadingIndicatorView) dialog.findViewById(R.id.avi);
-        TextView wait = (TextView) dialog.findViewById(R.id.wait);
-        wait.setTypeface(Main.myCustomFont);
-        avi.show();
-        dialog.show();
-    }
+//    public void showDialog(){
+//        dialog = new Dialog(getActivity());
+//        dialog.setContentView(R.layout.progress);
+//        dialog.setCancelable(false);
+//        dialog.setCanceledOnTouchOutside(false);
+//        AVLoadingIndicatorView avi = (AVLoadingIndicatorView) dialog.findViewById(R.id.avi);
+//        TextView wait = (TextView) dialog.findViewById(R.id.wait);
+//        wait.setTypeface(Main.myCustomFont);
+//        avi.show();
+//        dialog.show();
+//    }
 }
