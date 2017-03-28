@@ -83,8 +83,11 @@ public class DeveloperFragment extends Fragment {
             }
 
             @Override
-            public void onScroll(float scrollPosition) {
+            public void onScroll(float scrollPosition, @NonNull RecyclerView.ViewHolder currentHolder, @NonNull RecyclerView.ViewHolder newCurrent) {
+
             }
+
+
         });
         return view;
     }

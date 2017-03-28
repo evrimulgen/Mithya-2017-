@@ -50,6 +50,8 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import pl.aprilapps.easyphotopicker.EasyImage;
+
 import static com.pcce.mithya.mithya2017.ScalingUltilities.ScalingLogic.FIT;
 
 public class Home extends AppCompatActivity {
@@ -61,6 +63,7 @@ public class Home extends AppCompatActivity {
     public static Context ctx;
     public static TextView toolTitle;
     private FloatingActionButton imageadd;
+    public static int count =0;
     private ArrayList<Image> images = new ArrayList<>();
     private FirebaseStorage mFirebaseStorage;
     private DatabaseReference mDatabase;
@@ -102,8 +105,10 @@ public class Home extends AppCompatActivity {
                 //   startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
 
 
-                ImagePicker.setMinQuality(600, 600);
-                onPickImage(view);
+              //  ImagePicker.setMinQuality(600, 600);
+               // onPickImage(view);
+
+                EasyImage.openChooserWithGallery(Home.this, "Pick source", 0);
 
             }
         });
@@ -247,35 +252,39 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
-        filePath = data.getData();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Caption");
+
+        if(data!=null) {
+            filePath = data.getData();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Enter Caption");
 
 // Set up the input
-        final EditText input = new EditText(this);
+            final EditText input = new EditText(this);
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        builder.setView(input);
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            builder.setView(input);
 
 // Set up the buttons
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-               String caption = input.getText().toString();
-                upload(caption);
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String caption = input.getText().toString();
+                    upload(caption);
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
 
-        builder.show();
+            builder.show();
 
 
-        Toast.makeText(this,data.getData().getPath(),Toast.LENGTH_LONG).show();
+            Toast.makeText(this,data.getData().getPath(),Toast.LENGTH_LONG).show();
+        }
+
 
         // TODO do something with the bitmap
     }

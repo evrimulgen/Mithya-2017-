@@ -68,7 +68,7 @@ public class ScoresFragment extends Fragment {
         mDatabase.child("DAY 1").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                DataSnapshot dataSnapshot1 = dataSnapshot.getChildren("Score");
+             //   DataSnapshot dataSnapshot1 = dataSnapshot.getChildren("Score");
             }
 
             @Override

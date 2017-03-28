@@ -39,6 +39,7 @@ public class TeamFragment extends Fragment {
     String phone;
     public static TeamAdapter teamAdapter;
     public static Dialog dialog;
+    int count=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -85,8 +86,11 @@ public class TeamFragment extends Fragment {
             }
 
             @Override
-            public void onScroll(float scrollPosition) {
+            public void onScroll(float scrollPosition, @NonNull RecyclerView.ViewHolder currentHolder, @NonNull RecyclerView.ViewHolder newCurrent) {
+
             }
+
+
         });
         return view;
     }
@@ -98,7 +102,7 @@ public class TeamFragment extends Fragment {
         phone = team.get(position).getContact();
     }
 
-    public void getData(){
+    public  void getData(){
         teamRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -111,6 +115,7 @@ public class TeamFragment extends Fragment {
                     coordinator.setImage((String) data.child("Image").getValue());
                     team.add(coordinator);
                 }
+
                 teamAdapter = new TeamAdapter(getContext(), team);
                 scrollView.setAdapter(teamAdapter);
                 teamAdapter.notifyDataSetChanged();
@@ -118,16 +123,21 @@ public class TeamFragment extends Fragment {
                         .setMinScale(0.8f)
                         .build());
                 getInfo(scrollView.getCurrentItem());
+
                 dialog.dismiss();
+                Home.count++;
+                if(count ==1) {
+                    getData();
+                }
 
-
-
+              //  getFragmentManager().beginTransaction().detach(TeamFragment.this).attach(TeamFragment.this).commit();
 
             }
             @Override
             public void onCancelled(DatabaseError error) {
                 Log.w("Operations", "Failed to read value.", error.toException());
             }
+
 
 
         });
