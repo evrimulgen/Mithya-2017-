@@ -64,7 +64,7 @@ public class Home extends AppCompatActivity {
     public static FragmentTransaction mFragmentTransaction;
     public static Context ctx;
     public static TextView toolTitle;
-    private FloatingActionButton imageadd;
+    public static FloatingActionButton imageadd;
     public static int count = 0;
     private ArrayList<Image> images = new ArrayList<>();
     private FirebaseStorage mFirebaseStorage;

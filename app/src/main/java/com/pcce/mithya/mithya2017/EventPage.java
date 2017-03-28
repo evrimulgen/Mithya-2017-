@@ -41,7 +41,7 @@ public class EventPage extends AppCompatActivity {
         rulesHead = (TextView) findViewById(R.id.rulesHead);
         list = (ListView) findViewById(R.id.coordinators);
         toolTitle = (TextView) findViewById(R.id.toolbar_title);
-        reminder = (FloatingActionButton)findViewById(R.id.addreminder);
+//        reminder = (FloatingActionButton)findViewById(R.id.addreminder);
 
         image = (ImageView) findViewById(R.id.eventImage);
         icon = (ImageView) findViewById(R.id.eventIcon);
@@ -64,31 +64,31 @@ public class EventPage extends AppCompatActivity {
         toolTitle.setTypeface(Main.myCustomFont);
         rules.setTypeface(Main.myCustomFont);
 
-        reminder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),gettime(duration.getText().toString()),Toast.LENGTH_LONG).show();
-                String time = "530pm";
-                SimpleDateFormat dateFormat = new SimpleDateFormat("hmm");
-                SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mm aa");
-                try {
-                    Date date = dateFormat.parse(time);
-
-                    String out = dateFormat2.format(date);
-                    Log.e("Time", out);
-                } catch (ParseException e) {
-                }
-                Calendar cal = Calendar.getInstance();
-                Intent intent = new Intent(Intent.ACTION_EDIT);
-                intent.setType("vnd.android.cursor.item/event");
-                intent.putExtra("beginTime","09:00");
-                intent.putExtra("allDay", false);
-                intent.putExtra("rrule", "FREQ=DAILY");
-                intent.putExtra("endTime", "09:30");
-                intent.putExtra("title", title.getText());
-                startActivity(intent);
-            }
-        });
+//        reminder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getApplicationContext(),gettime(duration.getText().toString()),Toast.LENGTH_LONG).show();
+//                String time = "530pm";
+//                SimpleDateFormat dateFormat = new SimpleDateFormat("hmm");
+//                SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mm aa");
+//                try {
+//                    Date date = dateFormat.parse(time);
+//
+//                    String out = dateFormat2.format(date);
+//                    Log.e("Time", out);
+//                } catch (ParseException e) {
+//                }
+//                Calendar cal = Calendar.getInstance();
+//                Intent intent = new Intent(Intent.ACTION_EDIT);
+//                intent.setType("vnd.android.cursor.item/event");
+//                intent.putExtra("beginTime","09:00");
+//                intent.putExtra("allDay", false);
+//                intent.putExtra("rrule", "FREQ=DAILY");
+//                intent.putExtra("endTime", "09:30");
+//                intent.putExtra("title", title.getText());
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override

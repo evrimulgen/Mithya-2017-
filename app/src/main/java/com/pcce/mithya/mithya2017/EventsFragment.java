@@ -29,7 +29,7 @@ public class EventsFragment extends Fragment {
     public static GridView eventList;
     DayAdapter dayAdapter;
     int[] imageList = new int[]{R.drawable.day1, R.drawable.day2, R.drawable.day3, R.drawable.day4};
-    String[] days = {"Day 1", "Day 2", "Day 3", "Day 4"};
+    String[] days = {"Day1", "Day 2", "Day 3", "Day 4"};
     static ArrayList<Event> events;
     public static Dialog dialog;
     public static EventAdapter eventAdapter;
@@ -43,6 +43,8 @@ public class EventsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_events, container, false);
+
+        Home.imageadd.setVisibility(View.INVISIBLE);
         ctx = getContext();
         activity = getActivity();
        // Home.toolTitle.setText("Events - Mithya 2017");

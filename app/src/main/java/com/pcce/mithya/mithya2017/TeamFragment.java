@@ -46,6 +46,7 @@ public class TeamFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_team, container, false);
         Home.toolTitle.setText("Crew - Mithya 2017");
 
+        Home.imageadd.setVisibility(View.INVISIBLE);
 
         scrollView = (DiscreteScrollView) view.findViewById(R.id.picker);
         fname = (TextView) view.findViewById(R.id.teamFName);

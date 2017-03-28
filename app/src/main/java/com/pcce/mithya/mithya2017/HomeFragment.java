@@ -21,6 +21,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         events = (ImageView) view.findViewById(R.id.eventsButton);
         schedule = (ImageView) view.findViewById(R.id.scheduleButton);
+        Home.imageadd.setVisibility(View.VISIBLE);
 
         teams = (ImageView) view.findViewById(R.id.teamButton);
         BannerSlider bannerSlider = (BannerSlider) view.findViewById(R.id.banner);
