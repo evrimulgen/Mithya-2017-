@@ -249,16 +249,4 @@ public class ScoresFragment extends Fragment {
     }
 
 
-//    private SpannableStringBuilder generateCenterSpannableText() {
-//
-//        SpannableStringBuilder s = new SpannableStringBuilder("SCORES SO FAR");
-//        s.setSpan(new RelativeSizeSpan(1.2f), 0, 16, 0);
-//        s.setSpan(new StyleSpan(Typeface.BOLD), 0, 16, 0);
-////        s.setSpan(new RelativeSizeSpan(.8f), 16, s.length() - 5, 0);
-//        s.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), 17, s.length(), 0);
-//        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), 17, s.length(), 0);
-//        s.setSpan(new CustomTypefaceSpan("", Main.myCustomFont), 0, s.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-//        return s;
-//    }
-
 }

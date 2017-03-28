@@ -10,6 +10,7 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,8 @@ import java.util.ArrayList;
 public class StrengthFragment extends Fragment {
     private PieChart chart;
     DatabaseReference mDatabase;
-    private Integer[] yData = {5000, 2000, 3500, 3000};
+    int COMPSCORE, ITSCORE, MECHSCORE, ETCSCORE;
+
     private String[] xData = {"Information Technology", "Mechanical Engineering", "Computer Engineering", "Electronics and Telecommunications"};
     Context ctx;
     String day;
@@ -47,7 +49,10 @@ public class StrengthFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_strength, container, false);
-        mDatabase= FirebaseDatabase.getInstance().getReference("strength");
+
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("strength");
+
         ctx = getActivity();
         chart = (PieChart) view.findViewById(R.id.chart);
         it = (TextView) view.findViewById(R.id.itLabel);
@@ -58,24 +63,22 @@ public class StrengthFragment extends Fragment {
         comp.setTypeface(Main.myCustomFont);
         mech.setTypeface(Main.myCustomFont);
         etc.setTypeface(Main.myCustomFont);
-        chart.setCenterText(generateCenterSpannableText());
+//        chart.setCenterText(generateCenterSpannableText());
         chart.setHoleColor(Color.parseColor("#ecf0f1"));
-    //    loadChart(yData);
+        // loadChart(yData);
         chart.setEntryLabelColor(Color.WHITE);
 
 
-
-        mDatabase.child("it").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(getActivity(), dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
-                yData[0]= Integer.valueOf(dataSnapshot.getValue().toString());
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadChart(yData);
-                    }
-                });
+                COMPSCORE = 0;
+                ITSCORE = 0;
+                MECHSCORE = 0;
+                ETCSCORE = 0;
+
+
+                getData();
 
             }
 
@@ -84,69 +87,6 @@ public class StrengthFragment extends Fragment {
 
             }
         });
-
-        mDatabase.child("mech").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(getActivity(), dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
-                yData[1]= Integer.valueOf(dataSnapshot.getValue().toString());
-                loadChart(yData);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mDatabase.child("etc").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(getActivity(), dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
-                yData[2]= Integer.valueOf(dataSnapshot.getValue().toString());
-                loadChart(yData);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-        mDatabase.child("comp").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(getActivity(), dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
-                yData[3]= Integer.valueOf(dataSnapshot.getValue().toString());
-                loadChart(yData);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mDatabase.child("day").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(getActivity(), dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
-                day = dataSnapshot.getValue().toString();
-                chart.invalidate();
-                chart.setCenterText(generateCenterSpannableText());
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
 
 
 
@@ -155,10 +95,39 @@ public class StrengthFragment extends Fragment {
         return view;
     }
 
-    private void loadChart(Integer[] yvals){
+    void getData(){
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Strength strength = dataSnapshot.getValue(Strength.class);
+
+                COMPSCORE = strength.getCOMP();
+                ITSCORE = strength.getIT();
+                MECHSCORE = strength.getMECH();
+                ETCSCORE = strength.getETC();
+                Integer[] yData = {ITSCORE, MECHSCORE, COMPSCORE, ETCSCORE};
+
+                loadChart(yData);
+                Log.d("Scores", "" + COMPSCORE);
+                Log.d("Scores", "" + ITSCORE);
+                Log.d("Scores", "" + MECHSCORE);
+                Log.d("Scores", "" + ETCSCORE);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    private void loadChart(Integer[] yvals) {
         ArrayList<PieEntry> yvalues = new ArrayList<>();
         ArrayList<String> xvalues = new ArrayList<>();
-        for (Integer yval: yvals) {
+        for (Integer yval : yvals) {
             yvalues.add(new PieEntry(yval));
         }
         PieDataSet dataSet = new PieDataSet(yvalues, "");
@@ -168,7 +137,7 @@ public class StrengthFragment extends Fragment {
 
 
         dataSet.setColors(colors);
-        for (String xval: xData) {
+        for (String xval : xData) {
             xvalues.add(xval);
         }
 
@@ -178,18 +147,9 @@ public class StrengthFragment extends Fragment {
         data.setValueTextColor(Color.DKGRAY);
         chart.setDescription(null);
         chart.getLegend().setEnabled(false);
+        chart.invalidate();
         chart.setData(data);
     }
 
-    private SpannableStringBuilder generateCenterSpannableText() {
 
-        SpannableStringBuilder s = new SpannableStringBuilder("SHOW OF STRENGTH \n"+"Day "+day);
-        s.setSpan(new RelativeSizeSpan(1.2f), 0, 16, 0);
-        s.setSpan(new StyleSpan(Typeface.BOLD), 0, 16, 0);
-       // s.setSpan(new RelativeSizeSpan(.8f), 16, s.length() - 5, 0);
-        s.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), 17, s.length(), 0);
-        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), 17, s.length(), 0);
-        s.setSpan(new CustomTypefaceSpan("", Main.myCustomFont), 0, s.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-        return s;
-    }
 }
