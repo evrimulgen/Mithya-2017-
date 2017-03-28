@@ -65,7 +65,7 @@ public class Home extends AppCompatActivity {
     public static Context ctx;
     public static TextView toolTitle;
     private FloatingActionButton imageadd;
-    public static int count =0;
+    public static int count = 0;
     private ArrayList<Image> images = new ArrayList<>();
     private FirebaseStorage mFirebaseStorage;
     private DatabaseReference mDatabase;
@@ -107,15 +107,13 @@ public class Home extends AppCompatActivity {
                 //   startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
 
 
-              //  ImagePicker.setMinQuality(600, 600);
-               // onPickImage(view);
+                //  ImagePicker.setMinQuality(600, 600);
+                // onPickImage(view);
 
                 EasyImage.openChooserWithGallery(Home.this, "Pick source", 0);
 
             }
         });
-
-
 
 
         mFragmentManager = getSupportFragmentManager();
@@ -235,7 +233,6 @@ public class Home extends AppCompatActivity {
     }
 
 
-
     private void startIntroAnimation() {
         // btnCreate.setTranslationY(2 * getResources().getDimensionPixelOffset(R.dimen.btn_fab_size));
 
@@ -255,7 +252,7 @@ public class Home extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
 
-        if(data!=null) {
+        if (data != null) {
             filePath = data.getData();
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Enter Caption");
@@ -284,7 +281,7 @@ public class Home extends AppCompatActivity {
             builder.show();
 
 
-            Toast.makeText(this,data.getData().getPath(),Toast.LENGTH_LONG).show();
+            Toast.makeText(this, data.getData().getPath(), Toast.LENGTH_LONG).show();
         }
 
 
@@ -292,13 +289,10 @@ public class Home extends AppCompatActivity {
     }
 
 
-
-
-    private void upload(final String caption)
-    {
-        if(filePath != null) {
-         //   pd.show();
-        final  ProgressDialog d =  ProgressDialog.show(Home.this,"Loading","Uploading Please Wait");
+    private void upload(final String caption) {
+        if (filePath != null) {
+            //   pd.show();
+            final ProgressDialog d = ProgressDialog.show(Home.this, "Loading", "Uploading Please Wait");
             d.show();
 
             // bimatp factory
@@ -312,11 +306,11 @@ public class Home extends AppCompatActivity {
                     options);
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,50, baos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
             byte[] data = baos.toByteArray();
 
 
-            StorageReference childRef = storageRef.child("imageupload").child(Calendar.getInstance().getTimeInMillis()+filePath.getLastPathSegment());
+            StorageReference childRef = storageRef.child("imageupload").child(Calendar.getInstance().getTimeInMillis() + filePath.getLastPathSegment());
 
             //uploading the image
             UploadTask uploadTask = childRef.putBytes(data);
@@ -324,17 +318,16 @@ public class Home extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                  //  pd.dismiss();
-                    String a =  taskSnapshot.getDownloadUrl().toString();
-                    Log.d("abc",a);
+                    //  pd.dismiss();
+                    String a = taskSnapshot.getDownloadUrl().toString();
+                    Log.d("abc", a);
                     image = mDatabase.child("gallery");
-                    String userId=image.push().getKey();
-                    ImageUpload imageUpload = new com.pcce.mithya.mithya2017.ImageUpload(a,caption);
+                    String userId = image.push().getKey();
+                    ImageUpload imageUpload = new com.pcce.mithya.mithya2017.ImageUpload(a, caption);
                     image.child(userId).setValue(imageUpload);
 
 
-
-                    Toast.makeText(Home.this,a, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, a, Toast.LENGTH_SHORT).show();
                     d.dismiss();
 
                 }
@@ -345,13 +338,12 @@ public class Home extends AppCompatActivity {
                     Toast.makeText(Home.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
                 }
             });
-        }
-        else {
+        } else {
             Toast.makeText(Home.this, "Select an image", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private String decodeFile(String path,int DESIREDWIDTH, int DESIREDHEIGHT) {
+    private String decodeFile(String path, int DESIREDWIDTH, int DESIREDHEIGHT) {
         String strMyImagePath = null;
         Bitmap scaledBitmap = null;
 
@@ -406,7 +398,7 @@ public class Home extends AppCompatActivity {
     }
 
 
-    }
+}
 
 
 
