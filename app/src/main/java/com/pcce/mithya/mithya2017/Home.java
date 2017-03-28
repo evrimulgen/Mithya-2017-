@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
@@ -44,6 +45,7 @@ import com.google.firebase.storage.UploadTask;
 import com.mvc.imagepicker.ImagePicker;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -299,10 +301,25 @@ public class Home extends AppCompatActivity {
         final  ProgressDialog d =  ProgressDialog.show(Home.this,"Loading","Uploading Please Wait");
             d.show();
 
+            // bimatp factory
+            BitmapFactory.Options options = new BitmapFactory.Options();
+
+            // downsizing image as it throws OutOfMemory Exception for larger
+            // images
+            options.inSampleSize = 8;
+
+            final Bitmap bitmap = BitmapFactory.decodeFile(filePath.getPath(),
+                    options);
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG,50, baos);
+            byte[] data = baos.toByteArray();
+
+
             StorageReference childRef = storageRef.child("imageupload").child(Calendar.getInstance().getTimeInMillis()+filePath.getLastPathSegment());
 
             //uploading the image
-            UploadTask uploadTask = childRef.putFile(Uri.parse(decodeFile(filePath.toString(),640,640)));
+            UploadTask uploadTask = childRef.putBytes(data);
 
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
