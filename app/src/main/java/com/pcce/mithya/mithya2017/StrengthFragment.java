@@ -45,7 +45,7 @@ public class StrengthFragment extends Fragment {
             Color.parseColor("#f1c40f")
     };
 
-    private TextView it, comp, mech, etc;
+    private TextView it, comp, mech, etc, date;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_strength, container, false);
@@ -59,6 +59,8 @@ public class StrengthFragment extends Fragment {
         comp = (TextView) view.findViewById(R.id.compLabel);
         mech = (TextView) view.findViewById(R.id.mechLabel);
         etc = (TextView) view.findViewById(R.id.etcLabel);
+        date = (TextView) view.findViewById(R.id.date);
+
         it.setTypeface(Main.myCustomFont);
         comp.setTypeface(Main.myCustomFont);
         mech.setTypeface(Main.myCustomFont);
@@ -106,7 +108,7 @@ public class StrengthFragment extends Fragment {
                 MECHSCORE = strength.getMECH();
                 ETCSCORE = strength.getETC();
                 Integer[] yData = {ITSCORE, MECHSCORE, COMPSCORE, ETCSCORE};
-
+                date.setText("Show of Strength Data for : " + strength.getDAY());
                 loadChart(yData);
                 Log.d("Scores", "" + COMPSCORE);
                 Log.d("Scores", "" + ITSCORE);
