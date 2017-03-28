@@ -33,18 +33,20 @@ import static com.pcce.mithya.mithya2017.StrengthFragment.MY_COLORS;
 
 public class ScoresFragment extends Fragment {
 
-    DatabaseReference mDatabase,score;
+    DatabaseReference mDatabase, score;
     private PieChart chart;
     private Integer[] yData = {0, 0, 0, 0};
     private String[] xData = {"Information Technology", "Mechanical Engineering", "Computer Engineering", "Electronics and Telecommunications"};
     Activity ctx;
     String  day;
 
+    static int its, comps, mechs, etcs;
+
     private TextView it, comp, mech, etc;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scores, container, false);
 
-        mDatabase= FirebaseDatabase.getInstance().getReference("scores");
+        mDatabase= FirebaseDatabase.getInstance().getReference("events");
       //  Home.toolTitle.setText("Scores - Mithya 2017");
 
         ctx = getActivity();
@@ -63,10 +65,23 @@ public class ScoresFragment extends Fragment {
         chart.setEntryLabelColor(Color.WHITE);
 
 
+        mDatabase.child("DAY 1").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                DataSnapshot dataSnapshot1 = dataSnapshot.getChildren("Score");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
 
-        mDatabase.child("it").addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+        mDatabase.child("DAY 1").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                Toast.makeText(getActivity(), dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();

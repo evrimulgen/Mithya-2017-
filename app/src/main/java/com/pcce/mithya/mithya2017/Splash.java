@@ -13,7 +13,7 @@ public class Splash extends AppCompatActivity {
 
     AnimationDrawable animationDrawable;
     LinearLayout linearLayout;
-    TextView presents;
+    TextView presents, powered;
     private static int SPLASH_TIME = 5000;
 
 
@@ -24,10 +24,12 @@ public class Splash extends AppCompatActivity {
         Main.myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/montserrat.ttf");
         linearLayout = (LinearLayout) findViewById(R.id.activity_splash);
         presents = (TextView) findViewById(R.id.presents);
+        powered = (TextView) findViewById(R.id.powered);
         presents.setTypeface(Main.myCustomFont);
+        powered.setTypeface(Main.myCustomFont);
         animationDrawable =(AnimationDrawable)linearLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(500);
-        animationDrawable.setExitFadeDuration(200);
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(2000);
         animationDrawable.start();
         new Handler().postDelayed(new Runnable() {
             @Override
