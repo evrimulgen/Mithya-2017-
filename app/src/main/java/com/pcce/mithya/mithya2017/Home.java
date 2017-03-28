@@ -78,6 +78,8 @@ public class Home extends AppCompatActivity {
     int PICK_IMAGE_REQUEST = 111;
     StorageReference storageRef;
 
+    Bitmap bitmapFINAL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,16 +103,8 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //      Intent intent = new Intent();
-                //    intent.setType("image/*");
-                //     intent.setAction(Intent.ACTION_PICK);
-                //   startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+                ImagePicker.pickImage(Home.this, "Select your image:");
 
-
-                //  ImagePicker.setMinQuality(600, 600);
-                // onPickImage(view);
-
-                EasyImage.openChooserWithGallery(Home.this, "Pick source", 0);
 
             }
         });
@@ -195,10 +189,6 @@ public class Home extends AppCompatActivity {
         navFont();
     }
 
-    public void onPickImage(View view) {
-        // Click on image button
-        ImagePicker.pickImage(this, "Select your image:");
-    }
 
     @Override
     public void onBackPressed() {
@@ -249,21 +239,21 @@ public class Home extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        bitmapFINAL = ImagePicker.getImageFromResult(getApplicationContext(), requestCode, resultCode, data);
+        if (bitmapFINAL != null) {
 
-        if (data != null) {
-            filePath = data.getData();
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Enter Caption");
 
-// Set up the input
+            // Set up the input
             final EditText input = new EditText(this);
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
             input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
             builder.setView(input);
 
-// Set up the buttons
+            // Set up the buttons
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -279,18 +269,13 @@ public class Home extends AppCompatActivity {
             });
 
             builder.show();
-
-
-            Toast.makeText(this, data.getData().getPath(), Toast.LENGTH_LONG).show();
         }
-
-
-        // TODO do something with the bitmap
     }
 
 
+
     private void upload(final String caption) {
-        if (filePath != null) {
+
             //   pd.show();
             final ProgressDialog d = ProgressDialog.show(Home.this, "Loading", "Uploading Please Wait");
             d.show();
@@ -302,15 +287,13 @@ public class Home extends AppCompatActivity {
             // images
             options.inSampleSize = 8;
 
-            final Bitmap bitmap = BitmapFactory.decodeFile(filePath.getPath(),
-                    options);
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            bitmapFINAL.compress(Bitmap.CompressFormat.JPEG, 50, baos);
             byte[] data = baos.toByteArray();
 
 
-            StorageReference childRef = storageRef.child("imageupload").child(Calendar.getInstance().getTimeInMillis() + filePath.getLastPathSegment());
+            StorageReference childRef = storageRef.child("imageupload").child(Calendar.getInstance().getTimeInMillis() + "");
 
             //uploading the image
             UploadTask uploadTask = childRef.putBytes(data);
@@ -338,62 +321,6 @@ public class Home extends AppCompatActivity {
                     Toast.makeText(Home.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
                 }
             });
-        } else {
-            Toast.makeText(Home.this, "Select an image", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private String decodeFile(String path, int DESIREDWIDTH, int DESIREDHEIGHT) {
-        String strMyImagePath = null;
-        Bitmap scaledBitmap = null;
-
-        try {
-            // Part 1: Decode image
-            Bitmap unscaledBitmap = ScalingUltilities.decodeFile(path, DESIREDWIDTH, DESIREDHEIGHT, ScalingUltilities.ScalingLogic.FIT);
-
-            if (!(unscaledBitmap.getWidth() <= DESIREDWIDTH && unscaledBitmap.getHeight() <= DESIREDHEIGHT)) {
-                // Part 2: Scale image
-                scaledBitmap = ScalingUltilities.createScaledBitmap(unscaledBitmap, DESIREDWIDTH, DESIREDHEIGHT, FIT);
-            } else {
-                unscaledBitmap.recycle();
-                return path;
-            }
-
-            // Store to tmp file
-
-            String extr = Environment.getExternalStorageDirectory().toString();
-            File mFolder = new File(extr + "/TMMFOLDER");
-            if (!mFolder.exists()) {
-                mFolder.mkdir();
-            }
-
-            String s = "tmp.png";
-
-            File f = new File(mFolder.getAbsolutePath(), s);
-
-            strMyImagePath = f.getAbsolutePath();
-            FileOutputStream fos = null;
-            try {
-                fos = new FileOutputStream(f);
-                scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 75, fos);
-                fos.flush();
-                fos.close();
-            } catch (FileNotFoundException e) {
-
-                e.printStackTrace();
-            } catch (Exception e) {
-
-                e.printStackTrace();
-            }
-
-            scaledBitmap.recycle();
-        } catch (Throwable e) {
-        }
-
-        if (strMyImagePath == null) {
-            return path;
-        }
-        return strMyImagePath;
 
     }
 
