@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +28,8 @@ public class EventPage extends AppCompatActivity {
     private TextView title, description, duration, venue, type, toolTitle, rules, rulesHead;
     private Toolbar toolbar;
     private ImageView image, icon;
-    ListView list;
+    private CardView cardView;
+    RecyclerView list;
     private FloatingActionButton reminder;
 
     @Override
@@ -39,8 +43,10 @@ public class EventPage extends AppCompatActivity {
         type = (TextView) findViewById(R.id.eventType);
         rules = (TextView) findViewById(R.id.eventRules);
         rulesHead = (TextView) findViewById(R.id.rulesHead);
-        list = (ListView) findViewById(R.id.coordinators);
+        list = (RecyclerView) findViewById(R.id.coordinators);
         toolTitle = (TextView) findViewById(R.id.toolbar_title);
+        cardView =(CardView)findViewById(R.id.rulescard);
+
 //        reminder = (FloatingActionButton)findViewById(R.id.addreminder);
 
         image = (ImageView) findViewById(R.id.eventImage);
@@ -63,6 +69,11 @@ public class EventPage extends AppCompatActivity {
         venue.setTypeface(Main.myCustomFont);
         toolTitle.setTypeface(Main.myCustomFont);
         rules.setTypeface(Main.myCustomFont);
+        RecyclerView.LayoutManager mLayoutManager
+                = new LinearLayoutManager(EventPage.this, LinearLayoutManager.VERTICAL, false);
+        list.setLayoutManager(mLayoutManager);
+
+
 
 //        reminder.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -105,9 +116,16 @@ public class EventPage extends AppCompatActivity {
             rulesText += "• " + rule;
             rulesText += "\n";
         }
-        rules.setText(rulesText);
+        if(rulesText.equals(""))
+        {
+            cardView.setVisibility(View.GONE);
+        }else
+        {
+            rules.setText(rulesText);
+        }
         Picasso.with(getApplicationContext()).load(Main.sharedEvent.getImage()).into(image);
-        ListAdapter listAdapter = new EventCoordinatorAdapter(getApplicationContext(), Main.sharedEvent.getCoordinators());
+        EventCoordinatorAdapter listAdapter = new EventCoordinatorAdapter(EventPage.this, Main.sharedEvent.getCoordinators());
+     //  Toast.makeText(EventPage.this,String.valueOf(Main.sharedEvent.getCoordinators().size()) ,Toast.LENGTH_LONG).show();
         list.setAdapter(listAdapter);
     }
 

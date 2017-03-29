@@ -21,12 +21,12 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:background="#2dc4c4c4"
-    android:layout_height="match_parent">
+    android:layout_height="60dp">
         <TextView
             android:id="@+id/caption"
             android:textColor="@color/colorPrimary"
             android:layout_width="wrap_content"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:layout_centerInParent="true"
 
             android:layout_height="wrap_content" />

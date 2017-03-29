@@ -74,6 +74,8 @@ public class ScheduleAdapter   extends  RecyclerView.Adapter<ScheduleAdapter.MyV
 
         runEnterAnimation(holder.itemView, position);
         final Event schedule =scheduleList.get(position);
+        holder.Name.setTypeface(Main.myCustomFont);
+        holder.Time.setTypeface(Main.myCustomFont);
         holder.Name.setText(schedule.getName());
         holder.Time.setText(schedule.getDuration());
 

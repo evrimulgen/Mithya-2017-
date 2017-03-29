@@ -9,13 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.events.OnBannerClickListener;
 import ss.com.bannerslider.views.BannerSlider;
 
 public class HomeFragment extends Fragment {
     public ImageView events, schedule, teams;
-
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference bannerRef = database.getReference("banner");
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -24,11 +31,27 @@ public class HomeFragment extends Fragment {
         Home.imageadd.setVisibility(View.VISIBLE);
 
         teams = (ImageView) view.findViewById(R.id.teamButton);
-        BannerSlider bannerSlider = (BannerSlider) view.findViewById(R.id.banner);
-        bannerSlider.addBanner(new RemoteBanner("https://firebasestorage.googleapis.com/v0/b/mithya-2017.appspot.com/o/Slider%2F1.jpg?alt=media&token=b7826868-6854-48f4-a5eb-785542525ba3"));
-        bannerSlider.addBanner(new RemoteBanner("https://firebasestorage.googleapis.com/v0/b/mithya-2017.appspot.com/o/Slider%2F2.jpg?alt=media&token=ed40a700-9a60-4bb5-8833-d2c755dd9ec7"));
-        bannerSlider.addBanner(new RemoteBanner("https://firebasestorage.googleapis.com/v0/b/mithya-2017.appspot.com/o/Slider%2F3.jpg?alt=media&token=19e5e824-16d2-48fc-9f01-6b29d07e3293"));
-        bannerSlider.addBanner(new RemoteBanner("https://firebasestorage.googleapis.com/v0/b/mithya-2017.appspot.com/o/Slider%2F4.jpg?alt=media&token=080c3b45-c427-40b3-acfb-8b6e89ccda84"));
+       final  BannerSlider bannerSlider = (BannerSlider) view.findViewById(R.id.banner);
+       bannerRef.addValueEventListener(new ValueEventListener() {
+                                           @Override
+                                           public void onDataChange(DataSnapshot dataSnapshot) {
+                                               for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+
+                                                   bannerSlider.addBanner(new RemoteBanner(dataSnap.child("Image").getValue().toString()));
+                                               }
+                                           }
+
+                                           @Override
+                                           public void onCancelled(DatabaseError databaseError) {
+
+                                           }
+
+                                       });
+
+
+
+
+
         events.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

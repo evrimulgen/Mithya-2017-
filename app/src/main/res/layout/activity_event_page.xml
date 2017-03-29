@@ -28,7 +28,7 @@
                     android:layout_gravity="center" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical">
@@ -124,6 +124,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/rulescard"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp">
@@ -156,13 +157,32 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp">
-                    <ListView
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:textStyle="bold"
+                            android:id="@+id/coordintors"
+
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="COORDINATORS"/>
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/coordinators"/>
+                    </LinearLayout>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
     <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:layout_width="wrap_content"-->

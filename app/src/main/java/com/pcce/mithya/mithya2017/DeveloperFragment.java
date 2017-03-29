@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -142,6 +143,7 @@ public class DeveloperFragment extends Fragment {
                     new String[]{android.Manifest.permission.CALL_PHONE},
                     123);
         } else {
+            Toast.makeText(getActivity(),phone,Toast.LENGTH_LONG).show();
             startActivity(new Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:" + phone)));
         }
     }

@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingLeft="20dp"
     android:orientation="horizontal">
 
     <com.github.vipulasri.timelineview.TimelineView
@@ -10,6 +11,7 @@
         android:layout_height="match_parent"
         app:markerSize="20dp"
         app:lineSize="2dp"
+
         app:line="@color/colorPrimary"/>
 
 

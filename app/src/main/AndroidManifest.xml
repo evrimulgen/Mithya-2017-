@@ -23,6 +23,7 @@
 
         <activity
             android:name=".IntroActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Intro">
 
             <intent-filter>
@@ -37,9 +38,13 @@
         </activity>
 
 
-        <activity android:name="com.pcce.mithya.mithya2017.EventPage"></activity>
-        <activity android:name="com.pcce.mithya.mithya2017.Home"></activity>
-        <activity android:name="com.pcce.mithya.mithya2017.ScheduleActivity"></activity>
+        <activity android:name="com.pcce.mithya.mithya2017.EventPage"
+            android:screenOrientation="portrait"
+            ></activity>
+        <activity android:name="com.pcce.mithya.mithya2017.Home"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.pcce.mithya.mithya2017.ScheduleActivity"
+            android:screenOrientation="portrait"></activity>
 
         <service android:name="com.pcce.mithya.mithya2017.MyFirebaseMessagingService">
             <intent-filter>
