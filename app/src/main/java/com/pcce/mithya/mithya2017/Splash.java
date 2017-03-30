@@ -24,10 +24,9 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         Main.myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/montserrat.ttf");
         linearLayout = (LinearLayout) findViewById(R.id.activity_splash);
-        presents = (TextView) findViewById(R.id.presents);
-        powered = (TextView) findViewById(R.id.powered);
-        presents.setTypeface(Main.myCustomFont);
-        powered.setTypeface(Main.myCustomFont);
+
+
+
         animationDrawable =(AnimationDrawable)linearLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(2000);

@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment {
         schedule = (ImageView) view.findViewById(R.id.scheduleButton);
         Home.imageadd.setVisibility(View.VISIBLE);
 
-        teams = (ImageView) view.findViewById(R.id.teamButton);
+
        final  BannerSlider bannerSlider = (BannerSlider) view.findViewById(R.id.banner);
        bannerRef.addValueEventListener(new ValueEventListener() {
                                            @Override
@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment {
                                                for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
 
                                                    bannerSlider.addBanner(new RemoteBanner(dataSnap.child("Image").getValue().toString()));
+                                                   bannerSlider.setLoopSlides(false);
                                                }
                                            }
 
@@ -58,12 +59,7 @@ public class HomeFragment extends Fragment {
                 eventsClicked();
             }
         });
-        teams.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                teamClicked();
-            }
-        });
+
         schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,12 +89,7 @@ public class HomeFragment extends Fragment {
         fragmentTransaction.replace(R.id.containerView, new EventsFragment()).commit();
     }
 
-    public void teamClicked(){
-        Home.toolTitle.setText("Team - Mithya 2017");
-        Home.mDrawerLayout.closeDrawers();
-        FragmentTransaction fragmentTransaction = Home.mFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.containerView, new TeamFragment()).commit();
-    }
+
 
 
     public void ScheduleClicked()
